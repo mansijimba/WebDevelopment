@@ -3,24 +3,24 @@ package com.example.demo.controller;
 import com.example.demo.Entity.Futsal;
 import com.example.demo.pojo.Futsalpojo;
 import com.example.demo.pojo.GlobalApiResponse;
+import com.example.demo.service.FutsalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping
+@RequestMapping("Futsal")
 @RequiredArgsConstructor
 
 public class Futsalcontroller {
-    private Futsalcontroller FutsalService;
+    private final   FutsalService futsalService;
 
     @GetMapping("/list")
     public <globalApiResponse> List<Futsal> findAll(){
-        GlobalApiResponse<List<Futsal>> globalApiResponse = new globalApiResponse<List<Futsal>>();
+        GlobalApiResponse<List<Futsal>> globalApiResponse = new GlobalApiResponse<List<Futsal>>();
         globalApiResponse.setStatus(200);
-        globalApiResponse.setData(FutsalService.findAll());
+        globalApiResponse.setData(futsalService.findAll());
         globalApiResponse.setMessage("data saved successfully");
         return (List<Futsal>) globalApiResponse;
     }
@@ -30,13 +30,13 @@ public class Futsalcontroller {
         globalApiResponse.setStatus(200);
         globalApiResponse.setMessage("data saved successfully");
         globalApiResponse.setData("saved");
-        FutsalService.saveData(Futsalpojo);
+        FutsalService.save(futsalpojo);
         return globalApiResponse;
     }
 
     @PutMapping("/update")
     public void futsalUpdate(@RequestBody Futsalpojo futsalpojo) {
-        FutsalService.saveData(Futsalpojo);
+        FutsalService.save(futsalpojo);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -45,12 +45,12 @@ public class Futsalcontroller {
         globalApiResponse.setStatus(200);
         globalApiResponse.setMessage("data deleted successfully");
         globalApiResponse.setData(id);
-        this.FutsalService.delete(id);
+        this.futsalService.deleteById(id);
         return globalApiResponse;
 
     }
     @GetMapping("/getById/{id}")
-    public Optional<Futsal> findById(@PathVariable int id) {
-        return this.FutsalService.findById(id);
+    public Futsal findById(@PathVariable Integer id) {
+        return this.futsalService.findById(id);
     }
 }

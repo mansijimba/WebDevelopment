@@ -19,7 +19,7 @@ public  class FutsalServiceimpl implements FutsalService {
         return futsalrepository.findAll();
     }
 
-    @Override
+   @Override
     public void saveData(Futsalpojo futsalpojo) {
         Futsal futsal = new Futsal();
         futsal.setId(futsalpojo.getId());
@@ -31,5 +31,10 @@ public  class FutsalServiceimpl implements FutsalService {
     @Override
     public void deleteById(int id) {
         futsalrepository.deleteById(id);
+    }
+
+    @Override
+    public Futsal findById(int id) {
+        return null;
     }
 }

@@ -7,8 +7,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface FutsalService {
-    void saveData(Futsalpojo futsalpojo);
+    static void save(Futsalpojo futsalpojo) {}
+
+
     List<Futsal> findAll();
+
+    void saveData(Futsalpojo futsalpojo);
 
     void deleteById(int id);
 
